@@ -12,7 +12,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
 )
@@ -24,8 +24,24 @@ func init() {
 	if err != nil {
 		panic("Error loading .env file")
 	}
-	dsn := "" + os.Getenv("DB_USER") + ":" + os.Getenv("DB_PASSWORD") + "@tcp(" + os.Getenv("DB_HOST") + ":" + os.Getenv("DB_PORT") + ")/" + os.Getenv("DB_NAME") + "?charset=utf8mb4&parseTime=True&loc=Local"
-	services.DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+
+	dns := "host=" + os.Getenv("DB_HOST") +
+		" user=" + os.Getenv("DB_USER") +
+		" password=" + os.Getenv("DB_PASSWORD") +
+		" dbname=" + os.Getenv("DB_NAME") +
+		" port=" + os.Getenv("DB_PORT") +
+		" sslmode=" + os.Getenv("SSL_MODE") +
+		" TimeZone=" + os.Getenv("TZ_NAME") + ""
+
+	// if os.Getenv("DB_PASSWORD") == "" {
+	// 	dns = "host=" + os.Getenv("DB_HOST") +
+	// 		" user=" + os.Getenv("DB_USER") +
+	// 		" dbname=" + os.Getenv("DB_NAME") +
+	// 		" port=" + os.Getenv("DB_PORT") +
+	// 		" sslmode=" + os.Getenv("SSL_MODE") +
+	// 		" TimeZone=" + os.Getenv("TZ_NAME") + ""
+	// }
+	services.DB, err = gorm.Open(postgres.Open(dns), &gorm.Config{
 		SkipDefaultTransaction: true,
 		NowFunc: func() time.Time {
 			return time.Now().Local()
