@@ -10,13 +10,13 @@ import (
 type Asset struct {
 	ID             string         `gorm:"size:21" form:"id"`
 	CategoryID     string         `gorm:"size:21" form:"category_id"`
-	Category       Category       `gorm:"foreignKey:CategoryID;references:ID"`
 	CryptoID       string         `gorm:"size:21" form:"crypto_id"`
-	Cryptocurrency Cryptocurrency `gorm:"foreignKey:CryptoID;references:ID"`
 	Description    string         `gorm:"size:255" form:"description"`
 	IsActive       bool           `form:"is_active" default:"false"`
 	CreatedAt      time.Time      `form:"created_at" default:"now"`
 	UpdatedAt      time.Time      `form:"updated_at" default:"now"`
+	Category       Category       `gorm:"foreignKey:CategoryID;references:ID"`
+	Cryptocurrency Cryptocurrency `gorm:"foreignKey:CryptoID;references:ID"`
 }
 
 func (u *Asset) BeforeCreate(tb *gorm.DB) (err error) {

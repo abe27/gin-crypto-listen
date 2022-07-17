@@ -67,6 +67,7 @@ func init() {
 	services.DB.AutoMigrate(&models.HistoricalData{})
 	services.DB.AutoMigrate(&models.Interesting{})
 	services.DB.AutoMigrate(&models.Investment{})
+	services.DB.AutoMigrate(&models.ApiData{})
 }
 
 func main() {

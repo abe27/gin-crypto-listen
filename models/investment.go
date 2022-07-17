@@ -9,20 +9,22 @@ import (
 
 type Investment struct {
 	ID         string    `gorm:"size:21" form:"id"`
+	OrderNo    string    `gorm:"not null;unique;size:25" form:"order_no"`
 	UserID     string    `gorm:"size:21" form:"user_id"`
-	User       User      `gorm:"foreignKeys:UserID;references:ID"`
 	ExchangeID string    `gorm:"size:21" form:"exchange_id"`
-	Exchange   Exchange  `gorm:"foreignKeys:ExchangeID;references:ID"`
 	AssetID    string    `gorm:"size:21" form:"asset_id"`
-	Asset      Asset     `gorm:"foreignKeys:AssetID;references:ID"`
 	CurrencyID string    `gorm:"size:21" form:"currency_id"`
-	Currency   Currency  `gorm:"foreignKeys:CurrencyID;references:ID"`
 	Cost       float64   `gorm:"null" form:"cost" default:"0"`
 	Invest     float64   `gorm:"null" form:"invest" default:"0"`
 	Price      float64   `gorm:"null" form:"price" default:"0"`
-	IsStatus   bool      `form:"is_status" default:"false"`
+	IsClosed   bool      `form:"is_closed" default:"false"`
 	IsActive   bool      `form:"is_active" default:"false"`
 	CreatedAt  time.Time `form:"created_at" default:"now"`
+	UpdatedAt  time.Time `form:"updated_at" default:"now"`
+	User       User      `gorm:"foreignKeys:UserID;references:ID"`
+	Exchange   Exchange  `gorm:"foreignKeys:ExchangeID;references:ID"`
+	Asset      Asset     `gorm:"foreignKeys:AssetID;references:ID"`
+	Currency   Currency  `gorm:"foreignKeys:CurrencyID;references:ID"`
 }
 
 func (u *Investment) BeforeCreate(tb *gorm.DB) (err error) {
