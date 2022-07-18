@@ -13,3 +13,27 @@ var UserLeaveMessage = "ออกจากระบบเรียบร้อ�
 var RequiredAuthenticationMessage = "กรุณาระบุ Authorization ด้วย"
 var NotFoundTokenMessage = "ไม่พบข้อมูล Authorization Token!"
 var TokenExpiredMessage = "Token is expire!"
+
+var ShowAllDataMessage = func(name string) string {
+	return "แสดงข้อมูล " + name + " ทั้งหมด"
+}
+
+var FoundDataMessage = func(name string) string {
+	return "แสดงข้อมูล " + name + ""
+}
+
+var NotFoundDataMessage = func(name string) string {
+	return "ไม่พบข้อมูล " + name + "!"
+}
+
+var CreateDataSuccessMessage = func(name string) string {
+	return "บันทึกข้อมูล " + name + " เรียบร้อยแล้ว"
+}
+
+var UpdateDataMessage = func(name string) string {
+	return "อัพเดทข้อมูล " + name + " เรียบร้อยแล้ว"
+}
+
+var DeleteDataMessage = func(name string) string {
+	return "ลบข้อมูล " + name + " เรียบร้อยแล้ว"
+}

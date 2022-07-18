@@ -1,15 +1,15 @@
 package models
 
 type Response struct {
-	ID      string      `form:"id"`
-	Success bool        `form:"success" default:"true"`
-	Message string      `form:"message"`
-	Data    interface{} `form:"data"`
+	ID      string      `json:"id"`
+	Success bool        `json:"success" default:"true"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data"`
 }
 
 type AuthResponse struct {
-	ID     string `form:"id"`
-	Header string `form:"header" default:"Authorization"`
-	Type   string `form:"type" default:"Bearer"`
-	Token  string `form:"token"`
+	ID     string `json:"id"`
+	Header string `json:"header" default:"Authorization"`
+	Type   string `json:"type" default:"Bearer"`
+	Token  string `json:"token"`
 }

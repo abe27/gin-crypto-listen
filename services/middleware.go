@@ -40,7 +40,7 @@ func AuthorizationRequired(c *gin.Context) {
 	_, er := ValidateToken(jwtToken.Token)
 	if er != nil {
 		r.Message = TokenExpiredMessage
-		db.Delete(&jwtToken)
+		db.Where("id=?", jwtToken.ID).Delete(&models.JwtToken{})
 		c.AbortWithStatusJSON(http.StatusInternalServerError, &r)
 		return
 	}
