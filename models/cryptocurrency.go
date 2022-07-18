@@ -8,7 +8,7 @@ import (
 )
 
 type Cryptocurrency struct {
-	ID          string    `gorm:"size:21" form:"id"`
+	ID          string    `gorm:"size:21;primaryKey" form:"id" json:"id"`
 	Name        string    `gorm:"unique;size:50" form:"name"`
 	Symbol      string    `gorm:"size:10" form:"symbol"`
 	Address     string    `gorm:"size:60" form:"address"`

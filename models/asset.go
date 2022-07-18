@@ -8,7 +8,7 @@ import (
 )
 
 type Asset struct {
-	ID             string         `gorm:"size:21" form:"id"`
+	ID             string         `gorm:"size:21;primaryKey" form:"id"`
 	CategoryID     string         `gorm:"size:21" form:"category_id"`
 	CryptoID       string         `gorm:"size:21" form:"crypto_id"`
 	Description    string         `gorm:"size:255" form:"description"`

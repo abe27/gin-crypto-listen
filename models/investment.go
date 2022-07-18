@@ -8,7 +8,7 @@ import (
 )
 
 type Investment struct {
-	ID         string    `gorm:"size:21" form:"id"`
+	ID         string    `gorm:"size:21;primaryKey" form:"id" json:"id"`
 	OrderNo    string    `gorm:"not null;unique;size:25" form:"order_no"`
 	UserID     string    `gorm:"size:21" form:"user_id"`
 	ExchangeID string    `gorm:"size:21" form:"exchange_id"`
