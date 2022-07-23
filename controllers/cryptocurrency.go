@@ -8,37 +8,35 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func ShowAllCategories(c *gin.Context) {
+func ShowAllCryptoCurrency(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
-	var obj []models.Category
+	var obj []models.Cryptocurrency
+	// Fetch All Data
 	db := services.DB
 	err := db.Find(&obj).Error
 	if err != nil {
-		r.Message = services.NotFoundDataMessage("Category")
+		r.Message = services.SystemErrorMessage
 		r.Data = err
-		c.AbortWithStatusJSON(http.StatusNotFound, &r)
+		c.AbortWithStatusJSON(http.StatusInternalServerError, &r)
 		return
 	}
-
-	r.Message = services.ShowAllDataMessage("Category")
-	r.Data = obj
+	r.Message = services.ShowAllDataMessage("Crypto Currency")
+	r.Data = &obj
 	c.JSON(http.StatusOK, &r)
 }
 
-func CreateCategory(c *gin.Context) {
+func CreateCryptoCurrency(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
-	var obj models.Category
+	var obj models.Cryptocurrency
 	err := c.ShouldBind(&obj)
 	if err != nil {
 		r.Message = services.CheckInputRequiredMessage
 		r.Data = err
-		c.AbortWithStatusJSON(http.StatusBadRequest, &r)
+		c.AbortWithStatusJSON(http.StatusInternalServerError, &r)
 		return
 	}
 
-	// บันทึกข้อมูล
+	// Create a new currency
 	db := services.DB
 	err = db.Create(&obj).Error
 	if err != nil {
@@ -47,49 +45,55 @@ func CreateCategory(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, &r)
 		return
 	}
-
-	r.Message = services.CreateDataSuccessMessage(obj.Name)
-	r.Data = obj
+	r.Message = services.CreateDataSuccessMessage("Crypto Currency")
+	r.Data = &obj
 	c.JSON(http.StatusCreated, &r)
 }
 
-func ShowCategoryByID(c *gin.Context) {
+func ShowCryptoCurrencyByID(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
-	var obj models.Category
-	obj.ID = c.Param("id")
-
-	// ค้นหาข้อมูล
+	var obj models.Cryptocurrency
+	// Fetch data by ID
 	db := services.DB
-	err := db.Where("id=?", obj.ID).First(&obj).Error
+	err := db.Where("id", c.Param("id")).First(&obj).Error
 	if err != nil {
-		r.Message = services.NotFoundDataMessage(obj.ID)
+		r.Message = services.NotFoundDataMessage(c.Param("id"))
 		r.Data = err
 		c.AbortWithStatusJSON(http.StatusNotFound, &r)
 		return
 	}
 
-	r.Message = services.FoundDataMessage(obj.ID)
-	r.Data = obj
+	r.Message = services.FoundDataMessage(c.Param("id"))
+	r.Data = &obj
 	c.JSON(http.StatusOK, &r)
 }
 
-func UpdateCategory(c *gin.Context) {
+func UpdateCryptoCurrency(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
-	var obj models.Category
+	var obj models.Cryptocurrency
 	err := c.ShouldBind(&obj)
 	if err != nil {
 		r.Message = services.CheckInputRequiredMessage
 		r.Data = err
 		c.AbortWithStatusJSON(http.StatusBadRequest, &r)
+		return
 	}
-	// ค้นหาข้อมูล
-	obj.ID = c.Param("id")
-	db := services.DB
 
-	err = db.Where("id=?", obj.ID).Updates(&models.Category{
+	// Update Data By ID
+	db := services.DB
+	err = db.Where("id", c.Param("id")).First(&models.Cryptocurrency{}).Error
+	if err != nil {
+		r.Message = services.NotFoundDataMessage(c.Param("id"))
+		r.Data = err
+		c.AbortWithStatusJSON(http.StatusNotFound, &r)
+		return
+	}
+
+	err = db.Where("id", c.Param("id")).Updates(&models.Cryptocurrency{
 		Name:        obj.Name,
+		Symbol:      obj.Symbol,
+		Address:     obj.Address,
+		Flag:        obj.Flag,
 		Description: obj.Description,
 		IsActive:    obj.IsActive,
 	}).Error
@@ -98,29 +102,18 @@ func UpdateCategory(c *gin.Context) {
 		r.Message = services.SystemErrorMessage
 		r.Data = err
 		c.AbortWithStatusJSON(http.StatusInternalServerError, &r)
-		return
 	}
-
-	err = db.First(&obj).Error
-	if err != nil {
-		r.Message = services.NotFoundDataMessage(obj.ID)
-		r.Data = err
-		c.AbortWithStatusJSON(http.StatusNotFound, &r)
-		return
-	}
-
-	r.Message = services.UpdateDataMessage(obj.ID)
-	r.Data = obj
+	r.Message = services.UpdateDataMessage(c.Param("id"))
+	r.Data = &obj
 	c.JSON(http.StatusOK, &r)
 }
 
-func DeleteCategory(c *gin.Context) {
+func DeleteCryptoCurrency(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
-	var obj models.Category
-	// ค้นหาข้อมูล
+	var obj models.Cryptocurrency
+	// Update Data By ID
 	db := services.DB
-	err := db.Where("id=?", c.Param("id")).First(&obj).Error
+	err := db.Where("id", c.Param("id")).First(&obj).Error
 	if err != nil {
 		r.Message = services.NotFoundDataMessage(c.Param("id"))
 		r.Data = err
@@ -128,14 +121,13 @@ func DeleteCategory(c *gin.Context) {
 		return
 	}
 
-	err = db.Where("id=?", c.Param("id")).Delete(&models.Category{}).Error
+	err = db.Delete(&obj).Error
 	if err != nil {
 		r.Message = services.SystemErrorMessage
 		r.Data = err
 		c.AbortWithStatusJSON(http.StatusInternalServerError, &r)
-		return
 	}
-
 	r.Message = services.DeleteDataMessage(c.Param("id"))
+	r.Data = &obj
 	c.JSON(http.StatusOK, &r)
 }

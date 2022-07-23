@@ -11,7 +11,7 @@ import (
 func Hello(c *gin.Context) {
 	var r models.Response
 	r.ID = services.Gid()
-	r.Success = true
+
 	r.Message = services.HelloApi
 	c.JSON(http.StatusOK, &r)
 }

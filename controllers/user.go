@@ -13,11 +13,10 @@ func Register(c *gin.Context) {
 	var r models.Response
 	var u models.User
 	r.ID = services.Gid()
-	r.Success = true
+
 	// Map ข้อมูล
 	err := c.ShouldBind(&u)
 	if err != nil {
-		r.Success = false
 		r.Message = services.CheckInputRequiredMessage
 		r.Data = err
 		c.AbortWithStatusJSON(http.StatusBadRequest, &r)
@@ -30,7 +29,6 @@ func Register(c *gin.Context) {
 	// ตรวจสอบข้อผิดพลาดและบันทึกข้อมูล
 	err = db.Create(&u).Error
 	if err != nil {
-		r.Success = false
 		r.Message = services.DataIsDuplicateMessage
 		r.Data = err
 		c.AbortWithStatusJSON(http.StatusBadRequest, &r)
@@ -52,7 +50,6 @@ func SignIn(c *gin.Context) {
 	db := services.DB
 	err := db.Where("email=?", username).First(&u).Error
 	if err != nil {
-		r.Success = false
 		r.Message = services.NotFoundUserMessage
 		r.Data = err
 		c.AbortWithStatusJSON(http.StatusNotFound, &r)
@@ -60,8 +57,8 @@ func SignIn(c *gin.Context) {
 	}
 
 	// Compare HashPassword
-	r.Success = services.CheckPasswordHash(c.PostForm("password"), u.Password)
-	if !r.Success {
+	IsSuccess := services.CheckPasswordHash(c.PostForm("password"), u.Password)
+	if !IsSuccess {
 		r.Message = services.PasswordIsNotMatchMessage
 		r.Data = nil
 		c.AbortWithStatusJSON(http.StatusUnauthorized, &r)
@@ -71,7 +68,6 @@ func SignIn(c *gin.Context) {
 	// ทำการ Generate Token
 	header, tokenType, token, er := services.CreateToken(u.ID)
 	if er != nil {
-		r.Success = false
 		r.Message = services.SystemErrorMessage
 		r.Data = er
 		c.AbortWithStatusJSON(http.StatusBadRequest, &r)
@@ -108,7 +104,6 @@ func SignOut(c *gin.Context) {
 		return
 	}
 
-	r.Success = true
 	r.Message = services.UserLeaveMessage
 	r.Data = nil
 	c.JSON(http.StatusOK, &r)

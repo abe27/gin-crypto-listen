@@ -21,7 +21,7 @@ func ShowAllCurrency(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, &r)
 		return
 	}
-	r.Success = true
+
 	r.Message = services.ShowAllDataMessage("Currency")
 	r.Data = &obj
 	c.JSON(http.StatusOK, &r)
@@ -49,7 +49,6 @@ func CreateCurrency(c *gin.Context) {
 		return
 	}
 
-	r.Success = true
 	r.Message = services.CreateDataSuccessMessage(obj.ID)
 	r.Data = &obj
 	c.JSON(http.StatusCreated, &r)
@@ -69,7 +68,7 @@ func ShowCurrencyByID(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusNotFound, &r)
 		return
 	}
-	r.Success = true
+
 	r.Message = services.FoundDataMessage(obj.ID)
 	r.Data = &obj
 	c.JSON(http.StatusOK, &r)
@@ -112,7 +111,6 @@ func UpdateCurrency(c *gin.Context) {
 		return
 	}
 
-	r.Success = true
 	r.Message = services.UpdateDataMessage(obj.ID)
 	r.Data = &obj
 	c.JSON(http.StatusOK, &r)
@@ -140,7 +138,7 @@ func DeleteCurrency(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, &r)
 		return
 	}
-	r.Success = true
+
 	r.Message = services.DeleteDataMessage(c.Param("id"))
 	c.JSON(http.StatusOK, &r)
 }

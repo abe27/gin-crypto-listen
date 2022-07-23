@@ -21,7 +21,6 @@ func ShowAllExchange(c *gin.Context) {
 		return
 	}
 
-	r.Success = true
 	r.Message = services.ShowAllDataMessage("Exchange")
 	r.Data = &exchange
 	c.JSON(http.StatusOK, &r)
@@ -49,7 +48,6 @@ func CreateExchange(c *gin.Context) {
 		return
 	}
 
-	r.Success = true
 	r.Message = services.CreateDataSuccessMessage(obj.Name)
 	r.Data = &obj
 	c.JSON(http.StatusCreated, &r)
@@ -109,7 +107,6 @@ func UpdateExchange(c *gin.Context) {
 		return
 	}
 
-	r.Success = true
 	r.Message = services.UpdateDataMessage(obj.Name)
 	r.Data = &obj
 	c.JSON(http.StatusAccepted, &r)
@@ -138,7 +135,6 @@ func DeleteExchange(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, &r)
 	}
 
-	r.Success = true
 	r.Message = services.DeleteDataMessage(obj.Name)
 	r.Data = nil
 	c.JSON(http.StatusOK, &r)
