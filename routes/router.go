@@ -39,4 +39,11 @@ func SetupRoute(r *gin.Engine) {
 	crypto.GET("/show/:id", controllers.ShowCryptoCurrencyByID)
 	crypto.PUT("/update/:id", controllers.UpdateCryptoCurrency)
 	crypto.DELETE("/delete/:id", controllers.DeleteCryptoCurrency)
+
+	asset := u.Group("asset")
+	asset.GET("/all", controllers.ShowAllAsset)
+	asset.POST("/create", controllers.CreateAsset)
+	asset.GET("/show/:id", controllers.ShowAssetByID)
+	asset.PUT("/update/:id", controllers.UpdateAsset)
+	asset.DELETE("/delete/:id", controllers.DeleteAsset)
 }

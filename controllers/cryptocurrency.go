@@ -128,6 +128,6 @@ func DeleteCryptoCurrency(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, &r)
 	}
 	r.Message = services.DeleteDataMessage(c.Param("id"))
-	r.Data = &obj
+	r.Data = nil
 	c.JSON(http.StatusOK, &r)
 }
