@@ -15,8 +15,8 @@ type Asset struct {
 	IsActive       bool           `form:"is_active" default:"false"`
 	CreatedAt      time.Time      `form:"created_at" default:"now"`
 	UpdatedAt      time.Time      `form:"updated_at" default:"now"`
-	Category       Category       `gorm:"foreignKey:CategoryID;references:ID"`
-	Cryptocurrency Cryptocurrency `gorm:"foreignKey:CryptoID;references:ID"`
+	Category       Category       `gorm:"foreignKey:CategoryID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Cryptocurrency Cryptocurrency `gorm:"foreignKey:CryptoID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 func (u *Asset) BeforeCreate(tb *gorm.DB) (err error) {

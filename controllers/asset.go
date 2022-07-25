@@ -13,7 +13,7 @@ func ShowAllAsset(c *gin.Context) {
 	var obj models.Asset
 	// Fetch all assets
 	db := services.DB
-	err := db.Find(&obj).Error
+	err := db.Preload("Category").Preload("Cryptocurrency").Find(&obj).Error
 	if err != nil {
 		r.Message = services.SystemErrorMessage
 		r.Data = nil
@@ -55,7 +55,7 @@ func ShowAssetByID(c *gin.Context) {
 	var obj models.Asset
 	// Fetch By ID
 	db := services.DB
-	err := db.Where("id=?", c.Param("id")).First(&obj).Error
+	err := db.Preload("Category").Preload("Cryptocurrency").Where("id=?", c.Param("id")).First(&obj).Error
 	if err != nil {
 		r.Message = services.NotFoundDataMessage(c.Param("id"))
 		r.Data = nil
