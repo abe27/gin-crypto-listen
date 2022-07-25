@@ -11,7 +11,6 @@ import (
 func AuthorizationRequired(c *gin.Context) {
 	// secret_key := os.Getenv("SECRET_KEY")
 	var r models.Response
-	r.ID = Gid()
 	s := c.Request.Header.Get("Authorization")
 	token := strings.TrimPrefix(s, "Bearer ")
 

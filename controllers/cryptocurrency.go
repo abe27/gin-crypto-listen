@@ -90,8 +90,7 @@ func UpdateCryptoCurrency(c *gin.Context) {
 	}
 
 	err = db.Where("id", c.Param("id")).Updates(&models.Cryptocurrency{
-		Name:        obj.Name,
-		Symbol:      obj.Symbol,
+		Crypto:      obj.Crypto,
 		Address:     obj.Address,
 		Flag:        obj.Flag,
 		Description: obj.Description,

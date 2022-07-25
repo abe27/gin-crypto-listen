@@ -12,7 +12,6 @@ import (
 func Register(c *gin.Context) {
 	var r models.Response
 	var u models.User
-	r.ID = services.Gid()
 
 	// Map ข้อมูล
 	err := c.ShouldBind(&u)
@@ -43,7 +42,7 @@ func Register(c *gin.Context) {
 func SignIn(c *gin.Context) {
 	var r models.Response
 	var u models.User
-	r.ID = services.Gid()
+
 	username := c.PostForm("email")
 
 	// ตรวจสอบข้อมูลผู้ใช้งาน
@@ -86,7 +85,7 @@ func SignIn(c *gin.Context) {
 
 func SignOut(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
+
 	s := c.Request.Header.Get("Authorization")
 	token := strings.TrimPrefix(s, "Bearer ")
 	if token == "" {

@@ -9,8 +9,7 @@ import (
 
 type Cryptocurrency struct {
 	ID          string    `gorm:"size:21;primaryKey" form:"id" json:"id"`
-	Name        string    `gorm:"unique;size:50" form:"name"`
-	Symbol      string    `gorm:"size:10" form:"symbol"`
+	Crypto      string    `gorm:"size:10;unique" form:"crypto"`
 	Address     string    `gorm:"size:60" form:"address"`
 	Flag        string    `gorm:"null;size:255" form:"flag"`
 	Description string    `gorm:"size:255" form:"description"`

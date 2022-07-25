@@ -9,7 +9,7 @@ import (
 
 type Category struct {
 	ID          string    `gorm:"size:21;primaryKey" form:"id" json:"id"`
-	Name        string    `gorm:"unique;size:50" form:"name" json:"name" binding:"required"`
+	Category    string    `gorm:"unique;size:50" form:"category" json:"category" binding:"required"`
 	Description string    `gorm:"size:255" form:"description" json:"description"`
 	IsActive    bool      `form:"is_active" json:"is_active" default:"false"`
 	CreatedAt   time.Time `form:"created_at" json:"created_at" default:"now"`

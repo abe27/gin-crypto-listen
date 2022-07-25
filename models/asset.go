@@ -9,8 +9,8 @@ import (
 
 type Asset struct {
 	ID             string         `gorm:"size:21;primaryKey" form:"id"`
-	CategoryID     string         `form:"category_id"`
-	CryptoID       string         `form:"crypto_id"`
+	CategoryID     string         `form:"category"`
+	CryptoID       string         `form:"crypto"`
 	Description    string         `gorm:"size:255" form:"description"`
 	IsActive       bool           `form:"is_active" default:"false"`
 	CreatedAt      time.Time      `form:"created_at" default:"now"`

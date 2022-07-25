@@ -10,7 +10,7 @@ import (
 
 func ShowAllCurrency(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
+
 	var obj []models.Currency
 	// ค้นหาข้อมูล
 	db := services.DB
@@ -29,7 +29,7 @@ func ShowAllCurrency(c *gin.Context) {
 
 func CreateCurrency(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
+
 	var obj models.Currency
 	err := c.ShouldBind(&obj)
 	if err != nil {
@@ -56,7 +56,7 @@ func CreateCurrency(c *gin.Context) {
 
 func ShowCurrencyByID(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
+
 	var obj models.Currency
 	obj.ID = c.Param("id")
 	// ค้นหาข้อมูล
@@ -76,7 +76,7 @@ func ShowCurrencyByID(c *gin.Context) {
 
 func UpdateCurrency(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
+
 	var obj models.Currency
 	obj.ID = c.Param("id")
 	err := c.ShouldBind(&obj)
@@ -90,7 +90,6 @@ func UpdateCurrency(c *gin.Context) {
 	// ค้นหาข้อมูล
 	db := services.DB
 	err = db.Where("id=?", obj.ID).Updates(&models.Currency{
-		Name:        obj.Name,
 		Symbol:      obj.Symbol,
 		Flag:        obj.Flag,
 		Description: obj.Description,
@@ -118,7 +117,7 @@ func UpdateCurrency(c *gin.Context) {
 
 func DeleteCurrency(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
+
 	var obj models.Currency
 	obj.ID = c.Param("id")
 	// ลบข้อมูล

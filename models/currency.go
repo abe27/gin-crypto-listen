@@ -9,8 +9,7 @@ import (
 
 type Currency struct {
 	ID          string    `gorm:"size:21;primaryKey" form:"id" json:"id"`
-	Name        string    `gorm:"unique;size:50" form:"name" json:"name"`
-	Symbol      string    `gorm:"size:50" form:"symbol" json:"symbol"`
+	Symbol      string    `gorm:"unique;size:50" form:"symbol" json:"symbol"`
 	Flag        string    `gorm:"null;size:255" form:"flag" json:"flag"`
 	Description string    `gorm:"size:255" form:"description" json:"description"`
 	IsActive    bool      `form:"is_active" json:"is_active" default:"false"`

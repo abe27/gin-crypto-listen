@@ -10,7 +10,7 @@ import (
 
 func ShowAllCategories(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
+
 	var obj []models.Category
 	db := services.DB
 	err := db.Find(&obj).Error
@@ -28,7 +28,7 @@ func ShowAllCategories(c *gin.Context) {
 
 func CreateCategory(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
+
 	var obj models.Category
 	err := c.ShouldBind(&obj)
 	if err != nil {
@@ -48,14 +48,14 @@ func CreateCategory(c *gin.Context) {
 		return
 	}
 
-	r.Message = services.CreateDataSuccessMessage(obj.Name)
+	r.Message = services.CreateDataSuccessMessage(obj.Category)
 	r.Data = obj
 	c.JSON(http.StatusCreated, &r)
 }
 
 func ShowCategoryByID(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
+
 	var obj models.Category
 	obj.ID = c.Param("id")
 
@@ -76,7 +76,7 @@ func ShowCategoryByID(c *gin.Context) {
 
 func UpdateCategory(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
+
 	var obj models.Category
 	err := c.ShouldBind(&obj)
 	if err != nil {
@@ -89,7 +89,7 @@ func UpdateCategory(c *gin.Context) {
 	db := services.DB
 
 	err = db.Where("id=?", obj.ID).Updates(&models.Category{
-		Name:        obj.Name,
+		Category:    obj.Category,
 		Description: obj.Description,
 		IsActive:    obj.IsActive,
 	}).Error
@@ -116,7 +116,6 @@ func UpdateCategory(c *gin.Context) {
 
 func DeleteCategory(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
 	var obj models.Category
 	// ค้นหาข้อมูล
 	db := services.DB

@@ -9,7 +9,7 @@ import (
 
 type Exchange struct {
 	ID          string    `gorm:"size:21;primaryKey" form:"id" json:"id"`
-	Name        string    `gorm:"not null;unique;size:50" form:"name" json:"name" binding:"required"`
+	Exchange    string    `gorm:"not null;unique;size:50" form:"exchange" json:"exchange" binding:"required"`
 	Flag        string    `gorm:"null;size:255" form:"flag" json:"flag"`
 	Description string    `gorm:"size:255" form:"description" json:"description"`
 	IsActive    bool      `json:"is_active" form:"is_active" default:"false"`

@@ -12,7 +12,7 @@ func ShowAllExchange(c *gin.Context) {
 	db := services.DB
 	var r models.Response
 	var exchange []models.Exchange
-	r.ID = services.Gid()
+
 	err := db.Find(&exchange).Error
 	if err != nil {
 		r.Message = services.NotFoundDataMessage("Exchange")
@@ -28,7 +28,7 @@ func ShowAllExchange(c *gin.Context) {
 
 func CreateExchange(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
+
 	var obj models.Exchange
 	err := c.ShouldBind(&obj)
 	if err != nil {
@@ -48,14 +48,14 @@ func CreateExchange(c *gin.Context) {
 		return
 	}
 
-	r.Message = services.CreateDataSuccessMessage(obj.Name)
+	r.Message = services.CreateDataSuccessMessage(obj.Exchange)
 	r.Data = &obj
 	c.JSON(http.StatusCreated, &r)
 }
 
 func ShowExchangeByID(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
+
 	var obj models.Exchange
 	obj.ID = c.Param("id")
 
@@ -68,7 +68,7 @@ func ShowExchangeByID(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusNotFound, &r)
 		return
 	}
-	r.Message = services.FoundDataMessage(obj.Name)
+	r.Message = services.FoundDataMessage(obj.Exchange)
 	r.Data = &obj
 	c.JSON(http.StatusFound, &r)
 }
@@ -87,7 +87,7 @@ func UpdateExchange(c *gin.Context) {
 	obj.ID = c.Param("id")
 	db := services.DB
 	err = db.Where("id=?", obj.ID).Updates(&models.Exchange{
-		Name:        obj.Name,
+		Exchange:    obj.Exchange,
 		Flag:        obj.Flag,
 		Description: obj.Description,
 		IsActive:    obj.IsActive,
@@ -107,14 +107,14 @@ func UpdateExchange(c *gin.Context) {
 		return
 	}
 
-	r.Message = services.UpdateDataMessage(obj.Name)
+	r.Message = services.UpdateDataMessage(obj.Exchange)
 	r.Data = &obj
 	c.JSON(http.StatusAccepted, &r)
 }
 
 func DeleteExchange(c *gin.Context) {
 	var r models.Response
-	r.ID = services.Gid()
+
 	var obj models.Exchange
 	obj.ID = c.Param("id")
 	// ลบข้อมูล
@@ -135,7 +135,7 @@ func DeleteExchange(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, &r)
 	}
 
-	r.Message = services.DeleteDataMessage(obj.Name)
+	r.Message = services.DeleteDataMessage(obj.Exchange)
 	r.Data = nil
 	c.JSON(http.StatusOK, &r)
 }
