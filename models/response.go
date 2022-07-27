@@ -6,8 +6,7 @@ type Response struct {
 }
 
 type AuthResponse struct {
-	ID     string `json:"id"`
-	Header string `json:"header" default:"Authorization"`
-	Type   string `json:"type" default:"Bearer"`
-	Token  string `json:"token"`
+	Header string `default:"Authorization"`
+	Type   string `default:"Bearer"`
+	Token  string
 }

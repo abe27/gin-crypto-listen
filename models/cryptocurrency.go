@@ -6,7 +6,7 @@ import (
 )
 
 type Cryptocurrency struct {
-	ID          string `gorm:"size:21;primaryKey" form:"id" json:"id"`
+	ID          string `gorm:"size:21;primaryKey"`
 	Crypto      string `gorm:"size:10;unique" form:"crypto"`
 	Address     string `gorm:"size:60" form:"address"`
 	Flag        string `gorm:"null;size:255" form:"flag"`

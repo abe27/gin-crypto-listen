@@ -6,7 +6,7 @@ import (
 )
 
 type Interesting struct {
-	ID          string  `gorm:"size:21;primaryKey" form:"id" json:"id"`
+	ID          string  `gorm:"size:21;primaryKey"`
 	ExchangeID  string  `gorm:"size:21" form:"exchange_id"`
 	AssetID     string  `gorm:"size:21" form:"asset_id"`
 	CurrencyID  string  `gorm:"size:21" form:"currency_id"`

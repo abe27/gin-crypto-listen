@@ -6,7 +6,7 @@ import (
 )
 
 type Asset struct {
-	ID             string         `gorm:"size:21;primaryKey" form:"id"`
+	ID             string         `gorm:"size:21;primaryKey"`
 	CategoryID     string         `form:"category"`
 	CryptoID       string         `form:"crypto"`
 	Description    string         `gorm:"size:255" form:"description"`

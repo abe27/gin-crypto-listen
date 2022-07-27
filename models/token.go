@@ -6,7 +6,7 @@ import (
 )
 
 type ApiData struct {
-	ID         string `gorm:"size:21;primaryKey" form:"id" json:"id"`
+	ID         string `gorm:"size:21;primaryKey"`
 	UserID     string `gorm:"size:21" form:"user_id"`
 	ExchangeID string `gorm:"size:21" form:"exchange_id"`
 	SecretID   string `gorm:"unique;size:60" form:"secret_id"`

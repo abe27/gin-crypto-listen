@@ -6,11 +6,11 @@ import (
 )
 
 type Currency struct {
-	ID          string `gorm:"size:21;primaryKey" form:"id" json:"id"`
-	Symbol      string `gorm:"unique;size:50" form:"symbol" json:"symbol"`
-	Flag        string `gorm:"null;size:255" form:"flag" json:"flag"`
-	Description string `gorm:"size:255" form:"description" json:"description"`
-	IsActive    bool   `form:"is_active" json:"is_active" default:"false"`
+	ID          string `gorm:"size:21;primaryKey"`
+	Symbol      string `gorm:"unique;size:50" form:"symbol"`
+	Flag        string `gorm:"null;size:255" form:"flag"`
+	Description string `gorm:"size:255" form:"description"`
+	IsActive    bool   `form:"is_active" default:"false"`
 	gorm.Model
 }
 

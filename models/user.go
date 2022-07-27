@@ -6,10 +6,10 @@ import (
 )
 
 type User struct {
-	ID         string `gorm:"size:21;primaryKey" form:"id" json:"id"`
-	Email      string `gorm:"unique;index;not null;size:50" form:"email" json:"email" binding:"required"`
+	ID         string `gorm:"size:21;primaryKey"`
+	Email      string `gorm:"unique;index;not null;size:50" form:"email" binding:"required"`
 	Password   string `gorm:"size:60" form:"password" json:"-" binding:"required"`
-	IsVerified bool   `form:"is_verified" json:"is_verified" default:"false"`
+	IsVerified bool   `form:"is_verified" default:"false"`
 	gorm.Model
 }
 

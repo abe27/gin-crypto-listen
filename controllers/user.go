@@ -74,7 +74,6 @@ func SignIn(c *gin.Context) {
 	}
 
 	var auth models.AuthResponse
-	auth.ID = services.Gid()
 	auth.Header = header
 	auth.Type = tokenType
 	auth.Token = token
