@@ -1,6 +1,8 @@
 package models
 
 import (
+	"time"
+
 	n "github.com/matoous/go-nanoid/v2"
 	"gorm.io/gorm"
 )
@@ -13,7 +15,8 @@ type Asset struct {
 	IsActive       bool           `form:"is_active" default:"false"`
 	Category       Category       `gorm:"foreignKey:CategoryID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Cryptocurrency Cryptocurrency `gorm:"foreignKey:CryptoID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
-	gorm.Model
+	CreatedAt      time.Time      `form:"created_at" default:"now"`
+	UpdatedAt      time.Time      `form:"updated_at" default:"now"`
 }
 
 func (u *Asset) BeforeCreate(tb *gorm.DB) (err error) {
