@@ -13,8 +13,8 @@ type Asset struct {
 	CryptoID       string         `form:"crypto"`
 	Description    string         `gorm:"size:255" form:"description"`
 	IsActive       bool           `form:"is_active" default:"false"`
-	Category       Category       `gorm:"foreignKey:CategoryID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
-	Cryptocurrency Cryptocurrency `gorm:"foreignKey:CryptoID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Category       Category       `gorm:"foreignKey:CategoryID"`
+	Cryptocurrency Cryptocurrency `gorm:"foreignKey:CryptoID"`
 	CreatedAt      time.Time      `form:"created_at" default:"now"`
 	UpdatedAt      time.Time      `form:"updated_at" default:"now"`
 }

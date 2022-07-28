@@ -17,9 +17,7 @@ type Category struct {
 }
 
 func (u *Category) BeforeCreate(tb *gorm.DB) (err error) {
-	if u.ID == "" {
-		id, _ := n.New(21)
-		u.ID = id
-	}
+	id, _ := n.New(21)
+	u.ID = id
 	return
 }

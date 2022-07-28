@@ -27,6 +27,7 @@ func ShowAllAsset(c *gin.Context) {
 
 func CreateAsset(c *gin.Context) {
 	var r models.Response
+	// var category models.Category
 	var obj models.Asset
 	err := c.ShouldBind(&obj)
 	if err != nil {
@@ -38,6 +39,12 @@ func CreateAsset(c *gin.Context) {
 
 	// Create a new asset
 	db := services.DB
+	// err = db.Where("category=?", obj.Category.Category).First(&category).Error
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// obj.CategoryID = category.ID
+
 	err = db.Create(&obj).Error
 	if err != nil {
 		r.Message = services.SystemErrorMessage
